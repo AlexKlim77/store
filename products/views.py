@@ -9,6 +9,11 @@ from products.models import ProductCategory, Product, Basket
 class IndexView(TemplateView):
     template_name = 'products/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data()
+        context['title'] = 'Store'
+        return context
+
 
 # def index(request):
 #     context = {'title': 'Store'}
