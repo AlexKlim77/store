@@ -15,11 +15,6 @@ class IndexView(TemplateView):
         return context
 
 
-# def index(request):
-#     context = {'title': 'Store'}
-#     return render(request, 'products/index.html', context)
-
-
 def products(request, category_id=None, page_number=1):
     # if category_id:
     #     # category = ProductCategory.objects.get(id=category_id)
