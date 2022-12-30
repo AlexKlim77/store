@@ -131,3 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Users
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
+
+LOGIN_REDIRECT_URL = 'index'   # from django.urls import reverse_lazy -> reverse_lazy('index')
+LOGOUT_REDIRECT_URL = '/'
