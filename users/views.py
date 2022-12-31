@@ -1,8 +1,7 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.contrib import auth, messages
-from django.urls import reverse, reverse_lazy
+from django.urls import  reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from users.models import User
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
@@ -31,11 +30,12 @@ class UserLoginView(LoginView):
 #     return render(request, 'users/login.html', context)
 
 
-class UserRegistrationView(CreateView):
+class UserRegistrationView(SuccessMessageMixin, CreateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')
+    success_message = 'Ви успішно зареєструвалися'
 
     def get_context_data(self, **kwargs):
         context = super(UserRegistrationView, self).get_context_data()
