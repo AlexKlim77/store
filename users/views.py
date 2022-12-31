@@ -1,4 +1,4 @@
-from django.urls import  reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -39,9 +39,6 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     success_message = 'Ви успішно зареєструвалися'
     title = 'Store - Регістрація'
 
-    def get_context_data(self, **kwargs):
-        context = super(UserRegistrationView, self).get_context_data()
-        return context
 
 # def registration(request):
 #     if request.method == 'POST':
@@ -61,6 +58,7 @@ class UserProfileView(TitleMixin, UpdateView):
     form_class = UserProfileForm
     template_name = 'users/profile.html'
     title = 'Store - Особистий кабінет'
+
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
 
@@ -80,25 +78,25 @@ class UserProfileView(TitleMixin, UpdateView):
 #     else:
 #         form = UserProfileForm(instance=request.user)
 
-    # робимо розрахунки для виводу в Шаблон
-    # baskets = Basket.objects.filter(user=request.user)
-    # total_sum = sum(basket.sum() for basket in baskets)
-    # total_quantity = sum(basket.quantity for basket in baskets)
-    # total_sum = 0
-    # total_quantity = 0
-    # for basket in baskets:
-    #     total_sum += basket.sum()
-    #     total_quantity += basket.quantity
+# робимо розрахунки для виводу в Шаблон
+# baskets = Basket.objects.filter(user=request.user)
+# total_sum = sum(basket.sum() for basket in baskets)
+# total_quantity = sum(basket.quantity for basket in baskets)
+# total_sum = 0
+# total_quantity = 0
+# for basket in baskets:
+#     total_sum += basket.sum()
+#     total_quantity += basket.quantity
 
-    # context = {'title': 'Store - Профиль',
-    #            'form': form,
-    #            'baskets': Basket.objects.filter(user=request.user),
-    #            # 'total_sum': total_sum,
-    #            # 'total_sum': sum(basket.sum() for basket in baskets),
-    #            # 'total_quantity': total_quantity
-    #            # 'total_quantity': sum(basket.quantity for basket in baskets),
-    #            }
-    # return render(request, 'users/profile.html', context)
+# context = {'title': 'Store - Профиль',
+#            'form': form,
+#            'baskets': Basket.objects.filter(user=request.user),
+#            # 'total_sum': total_sum,
+#            # 'total_sum': sum(basket.sum() for basket in baskets),
+#            # 'total_quantity': total_quantity
+#            # 'total_quantity': sum(basket.quantity for basket in baskets),
+#            }
+# return render(request, 'users/profile.html', context)
 
 
 # def logout(request):
