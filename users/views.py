@@ -1,5 +1,5 @@
 from django.shortcuts import HttpResponseRedirect
-from django.urls import reverse_lazy,reverse
+from django.urls import reverse_lazy, reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView
@@ -16,7 +16,6 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
 
 
-
 class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     model = User
     form_class = UserRegistrationForm
@@ -24,7 +23,6 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('users:login')
     success_message = 'Ви успішно зареєструвалися'
     title = 'Store - Регістрація'
-
 
 
 class UserProfileView(TitleMixin, UpdateView):
@@ -37,13 +35,10 @@ class UserProfileView(TitleMixin, UpdateView):
         return reverse_lazy('users:profile', args=(self.object.id,))
 
 
-
-
-
 class EmailVerificationView(TitleMixin, TemplateView):
     title = 'Store - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
-    
+
     def get(self, request, *args, **kwargs):
         code = kwargs['code']
         user = User.objects.get(email=kwargs['email'])
@@ -54,6 +49,3 @@ class EmailVerificationView(TitleMixin, TemplateView):
             return super(EmailVerificationView, self).get(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('products:index'))
-
-
-            

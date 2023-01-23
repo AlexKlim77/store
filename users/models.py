@@ -6,10 +6,12 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 
+
 class User(AbstractUser):
     image = models.ImageField(upload_to='user_images', null=True, blank=True)
     is_verified_email = models.BooleanField(default=False)
     email = models.EmailField(_('email address'), blank=True, unique=True)
+
 
 class EmailVerification(models.Model):
     code = models.UUIDField(unique=True)
@@ -22,15 +24,15 @@ class EmailVerification(models.Model):
 
     def send_verification_email(self):
         link = reverse('users:email_verification', kwargs={'email': self.user.email,
-                                                'code': self.code})
+                                                           'code': self.code})
         verification_link = f'{settings.DOMAIN_NAME}{link}'
         subject = f'Підтвердження учётного запису для {self.user.username}'
         message = 'Для підтвердження облікового {} перейдіть по ссилці {}'.format(
-            self.user.email, verification_link )
+            self.user.email, verification_link)
         send_mail(
             subject=subject,
             message=message,
-            from_email='from@example.com',  #settings.EMAIL_HOST_USER
+            from_email='from@example.com',  # settings.EMAIL_HOST_USER
             recipient_list=[self.user.email],
             fail_silently=False,
         )

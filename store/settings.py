@@ -136,5 +136,5 @@ LOGIN_URL = '/users/login/'
 # Sending Emails
 from .email_settings import *
 
-LOGIN_REDIRECT_URL = 'index'   # from django.urls import reverse_lazy -> reverse_lazy('index')
+LOGIN_REDIRECT_URL = 'index'  # from django.urls import reverse_lazy -> reverse_lazy('index')
 LOGOUT_REDIRECT_URL = '/'
