@@ -19,11 +19,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products_images')
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукти'
-        
+
     def __str__(self):
         return f'{self.name} | {self.category.name}'
 
