@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from products.models import Product, ProductCategory
 
+
 class IndexViewTestCase(TestCase):
 
     def test_view(self):
