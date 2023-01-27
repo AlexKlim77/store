@@ -1,10 +1,12 @@
 from http import HTTPStatus
+from datetime import timedelta
 
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.timezone import now
 
 from users.forms import UserRegistrationForm
-from users.models import User
+from users.models import User, EmailVerification
 
 
 class sernameUserRegistrationViewTestCase(TestCase):
@@ -35,5 +37,10 @@ class sernameUserRegistrationViewTestCase(TestCase):
         self.assertRedirects(response, reverse('users:login'))
         self.assertTrue(User.objects.filter(username=username).exists())
 
-        # for debug mode
-        # a=1
+        # creating of EmailVerification - check logic
+        email_verification = EmailVerification.objects.filter(user__username=username)
+        self.assertTrue(email_verification.exists())
+        self.assertEqual(
+            email_verification.first().expiration.date(),
+            (now() + timedelta(hours=48)).date()
+        )
