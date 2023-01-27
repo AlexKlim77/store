@@ -14,7 +14,7 @@ class sernameUserRegistrationViewTestCase(TestCase):
     def setUp(self) -> None:
         self.data = {
             'first_name': 'Valk', 'last_name': 'Kalin',
-            'username': 'alesa', 'email': 'sdert@gmail.com',
+            'username': 'alex', 'email': 'sdert@gmail.com',
             'password1': '12345678Qw', 'password2': '12345678Qw',
         }
 
@@ -28,6 +28,7 @@ class sernameUserRegistrationViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'users/registration.html')
 
     def test_user_registration_post(self):
+        # 'for success scenario
         username = self.data['username']
         self.assertFalse(User.objects.filter(username=username).exists())
         response = self.client.post(self.path, self.data)
@@ -44,3 +45,15 @@ class sernameUserRegistrationViewTestCase(TestCase):
             email_verification.first().expiration.date(),
             (now() + timedelta(hours=48)).date()
         )
+
+
+    def test_user_registration_post_error(self):
+        User.objects.create(username=self.data['username'])
+        response = self.client.post(self.path, self.data)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Користувач з таким ім'ям вже існує.", html=True)
+
+
+
+
