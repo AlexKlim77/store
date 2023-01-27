@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
 from .db_settings import DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,6 +49,9 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
+    # django-debug-toolbar
+    'debug_toolbar',
+
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
 
@@ -61,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'store.urls'
@@ -83,6 +88,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'store.wsgi.application'
+
+
+INTERNAL_IPS = [
+    # debug toolbar work only with IP-address in this list
+    '127.0.0.1',
+    'localhost',
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -165,7 +177,7 @@ from .email_settings import *
 LOGIN_REDIRECT_URL = 'index'  # from django.urls import reverse_lazy -> reverse_lazy('index')
 LOGOUT_REDIRECT_URL = '/'
 
-#django-allauth
+# django-allauth
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
