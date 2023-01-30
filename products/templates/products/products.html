@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-{% load static %}
+{% load static cache%}
 {% block title %}
     <title>{{ title }}</title>
 {% endblock title %}
@@ -55,6 +55,12 @@
                 </div>
 
                 <div class="row">
+
+                {% cache 30 object_list %}
+                    {% comment %}
+                    кешування фрагмента шаблона на 30 сек
+                    {% endcomment %}
+
                     {% for product in products_list %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
@@ -79,6 +85,7 @@
                         </div>
                     {% endfor %}
 
+                {% endcache %}
                 </div>
 
 {# Paginations  #}

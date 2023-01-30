@@ -1,0 +1,7 @@
+Django==3.2.16
+django-allauth==0.52.0
+django-debug-toolbar==3.8.1
+django-redis==5.2.0
+flake8==6.0.0
+isort==5.11.4
+Pillow==9.3.0
